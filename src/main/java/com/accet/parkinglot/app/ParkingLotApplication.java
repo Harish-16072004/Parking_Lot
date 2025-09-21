@@ -18,20 +18,21 @@ import com.accet.parkinglot.service.SubscriptionManager;
 
 public class ParkingLotApplication {
 
-    private static final Scanner scanner = new Scanner(System.in);
     private static ParkingLotService parkingLotService;
     private static SubscriptionManager subscriptionManager;
     private static ChargingService chargingService;
     private static List<Gate> gates;
     private static Map<Integer, ParkingLotFloor> parkingFloors;
+    private static Scanner scanner;
 
     public static void main(String[] args) {
-        initializeSystem();
-        runApplication();
-        scanner.close();
+        try (Scanner mainScanner = new Scanner(System.in)) {
+            ParkingLotApplication app = new ParkingLotApplication();
+            app.run(mainScanner);
+        }
     }
 
-    private static void initializeSystem() {
+    private void initializeSystem() {
         subscriptionManager = new SubscriptionManager();
         parkingLotService = new ParkingLotService(subscriptionManager);
         chargingService = new ChargingService();
@@ -47,28 +48,24 @@ public class ParkingLotApplication {
         System.out.println("Parking lot is ready for operations.");
         System.out.println("--------------------------------------\n");
     }
-
-    private static void runApplication() {
+    private void run(Scanner scanner) {
+        ParkingLotApplication.scanner = scanner;
+        initializeSystem();
         while (true) {
+            System.out.println("\n--- Welcome to Parking Lot System ---");
             System.out.println("\n--- Welcome to Parking Lot System ---");
             System.out.println("Are you an (A)dmin or (C)ustomer? (Type 'exit' to quit)");
             System.out.print("Enter your role: ");
             String role = scanner.nextLine().trim().toLowerCase();
 
             switch (role) {
-                case "a":
-                case "admin":
-                    handleAdminRole();
-                    break;
-                case "c":
-                case "customer":
-                    handleCustomerRole();
-                    break;
-                case "exit":
+                case "a", "admin" -> handleAdminRole();
+                case "c", "customer" -> handleCustomerRole();
+                case "exit" -> {
                     System.out.println("Exiting Parking Lot System. Goodbye!");
                     return;
-                default:
-                    System.out.println("Invalid role. Please enter 'Admin' or 'Customer'.");
+                }
+                default -> System.out.println("Invalid role. Please enter 'Admin' or 'Customer'.");
             }
         }
     }
@@ -85,22 +82,12 @@ public class ParkingLotApplication {
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
-                case "1":
-                    parkingLotService.showAllParkedVehicles();
-                    break;
-                case "2":
-                    parkingLotService.showParkingHistory();
-                    break;
-                case "3":
-                    subscriptionManager.showSubscriptionDetails();
-                    break;
-                case "4":
-                    parkingLotService.showAvailableSpots();
-                    break;
-                case "5":
-                    return; // Go back to main menu
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                case "1" -> parkingLotService.showAllParkedVehicles();
+                case "2" -> parkingLotService.showParkingHistory();
+                case "3" -> subscriptionManager.showSubscriptionDetails();
+                case "4" -> parkingLotService.showAvailableSpots();
+                case "5" -> { return; } // Go back to main menu
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
@@ -177,22 +164,12 @@ public class ParkingLotApplication {
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
-                case "1":
-                    bookSpotForNonSubscriber();
-                    break;
-                case "2":
-                    parkingLotService.showAvailableSpots();
-                    break;
-                case "3":
-                    handleNewSubscription();
-                    break;
-                case "4":
-                    exitVehicle();
-                    break;
-                case "5":
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                case "1" -> bookSpotForNonSubscriber();
+                case "2" -> parkingLotService.showAvailableSpots();
+                case "3" -> handleNewSubscription();
+                case "4" -> exitVehicle();
+                case "5" -> { return; }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
     }
