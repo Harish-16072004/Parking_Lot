@@ -1,5 +1,11 @@
+com\accet\parkinglot\model\Gate.class
+com\accet\parkinglot\exception\ChargingLimitExceededException.class
 com\accet\parkinglot\model\Vehicle.class
 com\accet\parkinglot\model\Booking.class
+com\accet\parkinglot\exception\ParkingSpotNotAvailableException.class
+com\accet\parkinglot\exception\UnsupportedVehicleTypeException.class
+com\accet\parkinglot\exception\InvalidBookingException.class
+com\accet\parkinglot\model\Gate$GateType.class
 com\accet\parkinglot\model\Payment.class
 com\accet\parkinglot\model\VehicleType.class
 com\accet\parkinglot\service\FareCalculator$1.class
@@ -7,7 +13,10 @@ com\accet\parkinglot\service\SubscriptionManager.class
 com\accet\parkinglot\service\FareCalculator.class
 com\accet\parkinglot\model\ParkingSpot.class
 com\accet\parkinglot\model\PaymentMethod.class
+com\accet\parkinglot\service\ParkingLotInitializer.class
 com\accet\parkinglot\model\ParkingLotFloor.class
 com\accet\parkinglot\service\BookingRegistry.class
 com\accet\parkinglot\service\ChargingSlotManager.class
 com\accet\parkinglot\service\ParkingLotService.class
+com\accet\parkinglot\service\ChargingService$1.class
+com\accet\parkinglot\service\ChargingService.class

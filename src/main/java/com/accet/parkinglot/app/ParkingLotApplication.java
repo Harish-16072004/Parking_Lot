@@ -26,11 +26,9 @@ public class ParkingLotApplication {
     private static Map<Integer, ParkingLotFloor> parkingFloors;
 
     public static void main(String[] args) {
-        try (Scanner scannerResource = new Scanner(System.in)) {
-            scanner = scannerResource;
-            initializeSystem();
-            runApplication();
-        }
+        initializeSystem();
+        runApplication();
+        scanner.close();
     }
 
     private static void initializeSystem() {
